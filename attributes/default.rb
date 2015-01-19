@@ -103,3 +103,5 @@ default['kibana']['nginx']['ssl_session_timeout'] = '10m'
 
 #<> The virtualhost server name.
 default['kibana']['nginx']['server_name'] = 'kibana'
+
+default['kibana']['elasticsearch_host'] = ''
