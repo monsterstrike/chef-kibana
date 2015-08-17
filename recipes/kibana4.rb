@@ -12,7 +12,7 @@ if node['kibana']['install_method'] == 'release'
   end
   config_path = 'current/config/kibana.yml'
 else
-    Chef::Application.fatal!("Since Kibana version 4, install method can only be only 'release'")
+  Chef::Application.fatal!("Since Kibana version 4, install method can only be only 'release'")
 end
 
 # Apply config template
@@ -27,6 +27,7 @@ template File.join(node['kibana']['base_dir'], config_path) do
     port:       node['kibana']['port'],
     es_host:    node['kibana']['elasticsearch']['hosts'].first,
     es_port:    node['kibana']['elasticsearch']['port'],
+    index:      node['kibana']['index'],
     defaultapp: node['kibana']['defaultapp'],
     elasticsearch_host: node['kibana']['elasticsearch_host']
   )

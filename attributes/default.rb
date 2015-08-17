@@ -5,7 +5,7 @@ default['kibana']['version'] = '2'
 #<> Kibana3 exact version
 default['kibana']['kibana3_version'] = '3.0.0'
 #<> Kibana4 exact version
-default['kibana']['kibana4_version'] = '4.0.2'
+default['kibana']['kibana4_version'] = '4.1.1'
 #<> The base directory of kibana.
 default['kibana']['base_dir'] = '/opt/kibana'
 #<> The user under which Kibana is installed.
@@ -21,7 +21,7 @@ default['kibana']['url'] = Kibana::Url.new(node, url_version).get
 #<> Checksum of the tarball
 default['kibana']['checksum'] = 'df25bc0cc02385edcac446ef8cbd83b896cdc910a0fa1b0a7bd2a958164593a8'
 #<> Checksum of the tarball (for Kibana4)
-default['kibana']['kibana4_checksum'] = '4cc36e5c6ca7c495667319df75feda1facb7c43a3d9686841f07a2522adec294'
+default['kibana']['kibana4_checksum'] = '6f42d25f337fd49f38e2af81b9ab6e0c987a199a8c0b2e1410d072f812cb4520'
 
 #<> The URL to Kibana repository.
 default['kibana']['git']['url'] = if node['kibana']['version'] > '2'
@@ -47,6 +47,13 @@ default['kibana']['port'] = 5601
 default['kibana']['elasticsearch']['hosts'] = ['127.0.0.1']
 #<> The port of the elasticsearch http service.
 default['kibana']['elasticsearch']['port'] = 9200
+
+default['kibana']['index'] = if node['kibana']['version'] > '3'
+                               '.kibana'
+                             else
+                               'kibana-int'
+                             end
+
 #<> The which fields are shown by default.
 default['kibana']['default_fields'] = '["@message"]'
 #<> The operator used if no explicit operator is specified.
@@ -74,6 +81,9 @@ default['kibana']['apache']['basic_auth_password'] = 'PLEASEchangeme'
 default['kibana']['apache']['port'] = 80
 #<> Boolean switch to enable apache search query proxy
 default['kibana']['apache']['proxy'] = false
+#<> The apache configuration source
+default['kibana']['apache']['cookbook'] = 'kibana'
+
 #<> The port on which to bind nginx
 default['kibana']['nginx']['port'] = 80
 
@@ -114,10 +124,13 @@ default['kibana']['nginx']['server_name'] = 'kibana'
 
 default['kibana']['elasticsearch_host'] = ''
 
+#<> The nginx configuration source
+default['kibana']['nginx']['cookbook'] = 'kibana'
+
 #<> Redirect requests to kibana service
-default['kibana']['nginx']['kibana_service'] = nil
+default['kibana']['kibana_service'] = nil
 unless node['kibana']['version'] =~ /^3/
-  default['kibana']['nginx']['kibana_service'] = "http://#{node['kibana']['interface']}:#{node['kibana']['port']}"
+  default['kibana']['kibana_service'] = "http://#{node['kibana']['interface']}:#{node['kibana']['port']}"
 end
 
 #<> The kibana service configuration source
