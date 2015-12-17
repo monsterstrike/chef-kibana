@@ -9,6 +9,8 @@ if node['kibana']['install_method'] == 'release'
     checksum node['kibana']['kibana4_checksum']
     path node['kibana']['base_dir']
     home_dir File.join(node['kibana']['base_dir'], 'current')
+    owner node['kibana']['user']
+    group node['kibana']['group']
   end
   config_path = 'current/config/kibana.yml'
 else
