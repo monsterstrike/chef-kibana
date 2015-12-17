@@ -5,7 +5,7 @@ default['kibana']['version'] = '2'
 #<> Kibana3 exact version
 default['kibana']['kibana3_version'] = '3.0.0'
 #<> Kibana4 exact version
-default['kibana']['kibana4_version'] = '4.1.1'
+default['kibana']['kibana4_version'] = '4.2.0'
 #<> The base directory of kibana.
 default['kibana']['base_dir'] = '/opt/kibana'
 #<> The user under which Kibana is installed.
@@ -21,7 +21,7 @@ default['kibana']['url'] = Kibana::Url.new(node, url_version).get
 #<> Checksum of the tarball
 default['kibana']['checksum'] = 'df25bc0cc02385edcac446ef8cbd83b896cdc910a0fa1b0a7bd2a958164593a8'
 #<> Checksum of the tarball (for Kibana4)
-default['kibana']['kibana4_checksum'] = '6f42d25f337fd49f38e2af81b9ab6e0c987a199a8c0b2e1410d072f812cb4520'
+default['kibana']['kibana4_checksum'] = '67d586e43a35652adeb6780eaa785d3d785ce60cc74fbf3b6a9a53b753c8f985'
 
 #<> The URL to Kibana repository.
 default['kibana']['git']['url'] = if node['kibana']['version'] > '2'
