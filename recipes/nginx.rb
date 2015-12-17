@@ -4,6 +4,7 @@ include_recipe 'nginx'
 
 template File.join(node['nginx']['dir'], 'sites-available', 'kibana') do
   source 'nginx.erb'
+  cookbook node['kibana']['nginx']['cookbook']
   owner node['nginx']['user']
   mode '0644'
   variables(
@@ -22,7 +23,9 @@ template File.join(node['nginx']['dir'], 'sites-available', 'kibana') do
     'ssl_session_timeout' => node['kibana']['nginx']['ssl_session_timeout'],
     'proxy'               => node['kibana']['nginx']['proxy'],
     'auth'                => node['kibana']['nginx']['auth'],
-    'auth_file'           => node['kibana']['auth_file']
+    'auth_file'           => node['kibana']['auth_file'],
+    'index'               => node['kibana']['index'],
+    'kibana_service'      => node['kibana']['kibana_service']
   )
 end
 

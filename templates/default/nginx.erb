@@ -33,6 +33,9 @@ server {
     auth_basic "Kibana Auth";
     auth_basic_user_file <%= @auth_file %>;
     <% end %>
+    <% if @kibana_service %>
+    proxy_pass <%= @kibana_service %>;
+    <% end %>
   }
 
   <% if @proxy %>
@@ -57,11 +60,11 @@ server {
     proxy_read_timeout 90;
   }
 
-  location ~ ^/kibana-int/dashboard/.*$ {
+  location ~ ^/<%= @index %>/dashboard/.*$ {
     proxy_pass http://127.0.0.1:9200;
     proxy_read_timeout 90;
   }
-  location ~ ^/kibana-int/temp.*$ {
+  location ~ ^/<%= @index %>/temp.*$ {
     proxy_pass http://127.0.0.1:9200;
     proxy_read_timeout 90;
   }

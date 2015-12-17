@@ -26,12 +26,13 @@ end
 
 template File.join(node['kibana']['base_dir'], config_path) do
   cookbook node['kibana']['config']['cookbook']
-  source   node['kibana']['config']['source']
+  source node['kibana']['config']['source']
   owner node['kibana']['user']
   group node['kibana']['group']
   mode '0644'
   variables({
               :es_port => node['kibana']['elasticsearch']['port'],
-              :elasticsearch_host => node['kibana']['elasticsearch_host']
+              :elasticsearch_host => node['kibana']['elasticsearch_host'],
+              :index => node['kibana']['index']
             })
 end
